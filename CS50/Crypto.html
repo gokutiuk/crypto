@@ -1,0 +1,152 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <script src="https://ru.js.cx/test/libs.js"></script>
+    <script src="Crypto.js"></script>
+</head>
+<body>
+<script>
+
+    var value = +prompt("Введите не негативной число", 1);
+
+    function getSymbols(number, originalText) {
+        var arrLetter = [];
+        if ( typeof(number) === "number" && number > 0) {
+            originalText = prompt("Введите текст для шифровки", " 3a@DcEAclkвіsS");
+            for (var i = 0; originalText.length > i; i++) {
+                var Letter = originalText.slice(i,i+1);
+                arrLetter.push(Letter);
+
+            }
+
+            return arrLetter;
+        }
+        else
+            return console.log("Не верное значение")
+    }
+
+
+    function isBigLetter(letter) {
+        var bigletters = makeBigLetters();
+
+        for (var j=0; bigletters.length>j;j++)
+        {
+            if (bigletters[j]===letter.toString())
+            {
+                return true;
+            }
+
+        }
+
+        return false;
+
+
+    }
+
+    function isSmallLetter(letter) {
+        var smallLetters = makeSmallLetters();
+
+        for (var j=0; smallLetters.length>j;j++)
+        {
+            if (smallLetters[j]===letter.toString())
+            {
+                return true;
+            }
+
+        }
+
+        return false;
+
+    }
+
+    function makeSmallLetters()
+    {
+        var smallLetters = [];
+        for (var i =97;i<=122;i++)
+        {
+            smallLetters.push(String.fromCodePoint(i));
+        }
+        return smallLetters;
+    }
+    function makeBigLetters()
+    {
+        var bigletters = [];
+
+        for (var l =65;l<=90;l++)
+        {
+            bigletters.push(String.fromCodePoint(l));
+
+        }
+        return bigletters;
+    }
+    function encryptionSmallLetter(letter) {
+        var smallLetters = makeSmallLetters();
+        return smallLetters[letter];
+    }
+    function encryptionBigLetter(letter) {
+        var bigletters = makeBigLetters();
+        return bigletters[letter];
+    }
+    function encryption (symbols)
+    {
+        // symbols = validation(value);
+        var smallLetters = makeSmallLetters();
+        var bigLetters = makeBigLetters();
+        var pi = 0;
+        var cryptoMessage = [];
+
+        for (var i =0 ; symbols.length > i; i++)
+        {
+            // console.log(symbols[i]);
+            if(isSmallLetter(symbols[i])===true)
+            {
+                //console.log(symbols[i]+" Этот символ True");
+                for (var l=0; smallLetters.length > l; l++)
+                {
+                    if (smallLetters[l] === symbols[i])
+                    {
+                        pi = l;
+                        var ci = (pi+value)%26;
+                        console.log(ci);
+                        cryptoMessage.push(encryptionSmallLetter(ci));
+
+                    }
+                }
+
+            }
+            else if (isBigLetter(symbols[i])===true)
+            {
+                //console.log(symbols[i]+" Этот символ True")
+                for (var k=0; bigLetters.length > k; k++)
+                {
+                    if (bigLetters[k] === symbols[i])
+                    {
+                        pi = k;
+                        var ci = (pi+value)%26;
+                        console.log(ci);
+                        cryptoMessage.push(encryptionBigLetter(ci));
+                    }
+                }
+            }
+            else if (isBigLetter(symbols[i])===false || isSmallLetter(symbols[i])===false )
+            {
+                cryptoMessage.push(symbols[i]);
+            }
+
+
+
+        }
+        return cryptoMessage.toString();
+
+
+    }
+
+
+    console.log(encryption(getSymbols(value)));
+
+</script>
+
+</body>
+</html>
