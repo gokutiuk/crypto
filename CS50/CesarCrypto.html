@@ -14,7 +14,7 @@
     function getSymbols(number, originalText) {
         var arrLetter = [];
         if ( typeof(number) === "number" && number > 0) {
-            originalText = prompt("Введите текст для шифровки", " 3a@DcEAclkвіsS");
+            originalText = prompt("Введите текст для шифровки", "avdSxk32s");
             for (var i = 0; originalText.length > i; i++) {
                 var Letter = originalText.slice(i,i+1);
                 arrLetter.push(Letter);
@@ -138,13 +138,112 @@
 
 
         }
-        return cryptoMessage.toString();
+        return cryptoMessage.join("");
 
 
     }
 
+ getSymbols(value);
+encryption(getSymbols(value));
 
-    console.log(encryption(getSymbols(value)));
+</script>
+<script>
+
+
+    function getCodeMessage() {
+        var message = prompt("Введите ключ шифрования (анг)", "abCdExZ");
+        var a ;
+        var checkedMessage = "";
+
+        for (var i =0; message.length > i; i++)
+        {
+            a = message.charAt(i);
+            a = message.charCodeAt(i);
+            if ( a >= 65 && a <= 90 || a >= 97 && a <= 122 )
+            {
+               checkedMessage = String.fromCodePoint(a)+checkedMessage;
+            }
+            else
+            {
+                return " Неверное сообщение ";
+            }
+        }
+       checkedMessage= checkedMessage.split("").reverse().join("");
+        return checkedMessage;
+    }
+    function getText(){
+        var textMessage = prompt("Введите текст для шифровки","aB23Dіeв");
+
+        return textMessage.split("");
+    }
+
+
+    function changeToCodeMessage(message) {
+        var letter ;
+        var codeOfLetter;
+        var arrMessage = [];
+
+      for (var i =0; message.length > i; i++)
+      {
+         letter = message.charAt(i);
+         codeOfLetter = message.charCodeAt(i);
+         if ( codeOfLetter >= 65 && codeOfLetter <= 90 )
+         {
+             arrMessage.push(codeOfLetter-65);
+         }
+         else if ( codeOfLetter >= 97 && codeOfLetter <= 122)
+         {
+             arrMessage.push(codeOfLetter-97);
+         }
+         else
+              arrMessage.push(letter);
+      }
+      console.log(arrMessage);
+      return arrMessage;
+
+
+    }
+
+    function makeVigenere(text)
+    {
+        var codeMessage = changeToCodeMessage(getCodeMessage());
+      //  var textMessage = changeToCodeMessage(getText());
+        var numberOfLetterInAlfa = "";
+        var cryptoMessage = [];
+        var codeOfLetter ="";
+        var letter ="";
+
+
+        for (var i=0; text.length>=i; i ++){
+             codeOfLetter = text[i].toString();
+            codeOfLetter = codeOfLetter.charCodeAt(codeOfLetter);
+             letter = text[i];
+            if (codeOfLetter < 65 && codeOfLetter > 90 || codeOfLetter < 97 && codeOfLetter >122)
+            {
+                cryptoMessage.push(letter);
+            }
+            else if ( codeOfLetter >= 65 && codeOfLetter <= 90 )
+            {
+                numberOfLetterInAlfa = ((codeOfLetter-65)+codeMessage[i])%26;
+                cryptoMessage.push(String.fromCodePoint(numberOfLetterInAlfa+65))
+            }
+            else if ( codeOfLetter >= 97 && codeOfLetter <= 122 )
+            {
+                numberOfLetterInAlfa = ((codeOfLetter-97)+codeMessage[i])%26;
+                cryptoMessage.push(String.fromCodePoint(numberOfLetterInAlfa+97))
+            }
+
+
+        }
+        console.log(cryptoMessage);
+        return cryptoMessage;
+
+
+    }
+    makeVigenere(getText());
+
+
+
 
 </script>
 

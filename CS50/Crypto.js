@@ -1,11 +1,13 @@
+
 describe ("getSymbols", function () {
-    it("Проверка что возвращается массив ", function ()
+
+    // it("Проверка что возвращается массив ", function ()
+    // {
+    //     assert.deepEqual(getSymbols(10,'abcd'),arrLetter =["a","b","c","d"]);
+    // });
+    it("Что первое значение в функции должно быть === number ", function ()
     {
-        assert.equal(getSymbols(10,'abcd'),arrLetter["a","b","c","d"]);
-    });
-    it("Что первое значение в функции === number ", function ()
-    {
-        assert.equal(getSymbols("12",),arrLetter["a","b","c","d"]);
+        assert.deepEqual(getSymbols("12",),undefined);
 
     });
 
@@ -52,11 +54,11 @@ describe ("isSmallLetter", function () {
 });
 
 describe ("makeSmallLetters", function () {
-    it("Проверка проверка первой буквы алфавита нижнего регистра", function ()
+    it("Проверка что функция возвращает массив ", function ()
     {
-        var a = makeSmallLetters();
+       var a = makeSmallLetters();
 
-        assert.equal(a[0],"a");
+        assert.deepEqual(makeSmallLetters(),a);
     });
     it("Проверка проверка последней буквы алфавита нижнего регистра", function ()
     {
@@ -92,11 +94,11 @@ describe ("makeSmallLetters", function () {
 });
 
 describe ("makeBigLetters", function () {
-    it("Проверка проверка первой буквы алфавита верхнего регистра", function ()
+    it("Проверка что функция возвращает массив ", function ()
     {
         var a = makeBigLetters();
 
-        assert.equal(a[0],"A");
+        assert.deepEqual(makeBigLetters(),a);
     });
     it("Проверка проверка последней буквы алфавита верхнего регистра", function ()
     {
@@ -176,3 +178,35 @@ describe ("encryptionBigLetter", function () {
     });
 
 });
+
+
+describe ("encryption", function () {
+    it("Проверка что функция ширует правильно маленькие буквы анг алфавита", function ()
+    {
+        value = 3;
+        assert.equal(encryption("abcd"),"defg");
+    });
+    it("Проверка что функция ширует правильно большие буквы анг алфавита", function ()
+    {
+        value = 1;
+        assert.equal(encryption("ZXY"),"AYZ");
+    });
+    it("Проверка что функция ширует правильно с символамы какие не входят в анг алфавит", function ()
+    {
+        value = 1;
+        assert.equal(encryption("Z%Y3Zю"),"A%Z3Aю");
+    });
+    it("Проверка что функция не ширует русские буквы", function ()
+    {
+        value = 1;
+        assert.equal(encryption("фывавы"),"фывавы");
+    });
+    it("Проверка что функция  ширует буквы разного регистра ", function ()
+    {
+        value = 5;
+        assert.equal(encryption("aZbZ"),"fEgE");
+    });
+
+
+});
+
